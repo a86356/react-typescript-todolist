@@ -1,5 +1,4 @@
 import React from "react";
-console.log(123)
 import "./assets/common.css";
 import { Route, Switch, BrowserRouter } from "react-router-dom";
 

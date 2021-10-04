@@ -24,7 +24,6 @@ const NewsList = () => {
 
   useEffect(()=>{
     dispatch(getNewListAsync(pageNum))
-    console.log('useffect pagenum='+pageNum)
 
   },[pageNum])
 

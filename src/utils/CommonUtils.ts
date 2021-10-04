@@ -3,7 +3,9 @@ export const isReachBottom=(successcallback:any,failcallback?:any)=>{
     if (getScrollTop()+getWindowHeight()+50>getScrollHeight()){
         successcallback()
     }else{
-        failcallback()
+        if(failcallback){
+            failcallback()
+        }
     }
 
 
