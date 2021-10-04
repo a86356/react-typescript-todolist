@@ -15,7 +15,6 @@ const Searchtips = () => {
   });
 
   const dispatch = useDispatch();
-  console.log(showSearchBox)
 
   return (
     <div>
