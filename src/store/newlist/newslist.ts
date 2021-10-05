@@ -7,6 +7,7 @@ export interface InitialState {
     list: Array<Item>;
     originlist: Array<Item>;
     matches: Array<Item>;
+    selectedlist: Array<Item>;
     pageNum:number,
     counts:number,
     loading:boolean,
@@ -26,6 +27,7 @@ export const initialState: InitialState = {
     list: [],
     originlist:[],
     matches:[],
+    selectedlist:[],
     pageNum:1,
     counts:1,
     loading:false,
@@ -39,14 +41,12 @@ export const getNewListAsync=(pageNum:number)=>{
             payload:true,
         })
         apis.getwords(pageNum).then((res:any)=>{
-            let data =res.data;
+            const data =res.data;
             const backuppic='http://ydschool-online.nos.netease.com/GaoZhongluan_2_215_state_1548148785614001356_state_LJY.png?'
 
             data.list.forEach((item:any)=>{
-                console.log(item)
                 if(item.pics==''){
                     item.pics=backuppic
-                    debugger
                 }
             })
 
@@ -71,24 +71,26 @@ export enum ActionType {
     Newslistgetlist=4,
     Newslistloading=5,
     Newslistchangepage=6,
-    NewslistToggleSearchBox=7
+    NewslistToggleSearchBox=7,
+    Newslistdeleteitem=8
 }
 
 export const newslist: Reducer = (state = initialState, action) => {
     const { type, payload } = action;
     if (type === ActionType.NewslistChangeinput) {
         const tmp:Item[]=[];
-        console.log('input='+payload)
         const inputlen = payload.length
         if(inputlen>0){
-            state.list.forEach((item:Item)=>{
+
+            state.originlist.forEach((item:Item)=>{
                 if(item['e_word'].substring(0,inputlen)===payload){
                     if(tmp.length<10){
                         tmp.push(item)
                     }
                 }
             })
-            return { ...state, inputValue: payload,matches:tmp,list:tmp,showSearchBox:true };
+
+            return { ...state, inputValue: payload,matches:tmp,showSearchBox:true };
         }
         if(inputlen==0){
             return { ...state, inputValue: '',matches:[],list:state.originlist,showSearchBox: false };
@@ -96,34 +98,44 @@ export const newslist: Reducer = (state = initialState, action) => {
     }
 
     if (type === ActionType.Newslistselectitem) {
+        let matchItem=null;
+        state.list.forEach((item:Item)=>{
+            if(item.e_word==payload){
+                matchItem=item
+            }
+        })
+        const tmp:string[]=[]
+        let end=[];
+
+        state.selectedlist.forEach((item:Item)=>{
+            tmp.push(item.e_word)
+        })
+        if(tmp.indexOf(payload)===-1){
+            end=[...state.selectedlist,matchItem]
+        }else{
+            end=[...state.selectedlist]
+        }
         return {
             ...state,
-            inputValue: payload,
+            inputValue: '',
             matches: [],
-            showSearchBox: false
+            showSearchBox: false,
+            selectedlist:end
         };
     }
 
     if (type === ActionType.NewslistSubmit) {
-        const v= state.inputValue.trim()
-        if(v.length===0){
-            alert('输入为空');
-            return state
-        }
-        let ismatch=false
-        state.list.forEach((item:Item)=>{
-            if(item.e_word===v){
-                ismatch=true
-            }
-        })
-        if(!ismatch){
-            alert('没有匹配的条件')
-            return state
+
+        if(state.selectedlist.length==0){
+            alert("未输入，请先输入")
+            return
         }
 
-        alert('提交数据中...')
-
-        return state;
+        return {
+            ...state,
+            list: [...state.selectedlist],
+            showSearchBox: false
+        };
     }
     if (type === ActionType.Newslistgetlist) {
 
@@ -153,7 +165,20 @@ export const newslist: Reducer = (state = initialState, action) => {
             showSearchBox:payload
         }
     }
+    if (type === ActionType.Newslistdeleteitem) {
 
+        const tmp:Item[]=[];
 
+        state.selectedlist.forEach((item:Item)=>{
+            if(item.e_word!=payload){
+                tmp.push(item)
+            }
+        })
+        return {
+            ...state,
+            selectedlist:tmp,
+            list:tmp.length>0?tmp:state.originlist
+        }
+    }
     return state;
 };

@@ -31,7 +31,7 @@ const Searchtips = () => {
                                       payload: value,
                                   })
                               }
-                          }} >{item.e_word}{item.c_word}</div>
+                          }} >{item.e_word}</div>
 
                           <div className={'close'} onClick={()=>{
                               dispatch({
