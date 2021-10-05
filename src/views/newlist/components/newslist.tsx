@@ -10,6 +10,8 @@ import {useHistory} from "react-router-dom";
 
 
 const NewsList = () => {
+  const [backpic,setBackpic] = useState<string>('http://ydschool-online.nos.netease.com/GaoZhongluan_2_215_state_1548148785614001356_state_LJY.png?');
+
   const {loading,list,pageNum,} = useSelector((state:IRootState) => {
     const s = state.searchbar
     return {

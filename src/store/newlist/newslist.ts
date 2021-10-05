@@ -39,7 +39,17 @@ export const getNewListAsync=(pageNum:number)=>{
             payload:true,
         })
         apis.getwords(pageNum).then((res:any)=>{
-            const data =res.data;
+            let data =res.data;
+            const backuppic='http://ydschool-online.nos.netease.com/GaoZhongluan_2_215_state_1548148785614001356_state_LJY.png?'
+
+            data.list.forEach((item:any)=>{
+                console.log(item)
+                if(item.pics==''){
+                    item.pics=backuppic
+                    debugger
+                }
+            })
+
             dispatch({
                 type: ActionType.Newslistgetlist,
                 payload:data,
