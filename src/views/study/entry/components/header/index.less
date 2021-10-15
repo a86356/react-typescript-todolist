@@ -1,0 +1,93 @@
+@import "src/assets/style/antd";
+@h :60px;
+
+.header{
+  width: 100%;
+  background: @primary-color;
+  box-shadow:  0 1px 2px rgba(0,0,0,.2);
+  height: @h;
+  border-bottom: 1px solid @border-color-base;
+  display: flex;
+  line-height:@h;
+  justify-content: space-around;
+  .logo{
+    font-size:@fz-large;
+    font-weight: bold;
+    display: flex;
+    img{
+      width: 50px;
+      height: 50px;
+      display: inline-block;
+      margin-top: 4px;
+    }
+    h1{
+      color: #fff;
+      line-height: 60px;
+    }
+  }
+  .middle{
+    margin-left: 200px;
+    font-size: @fz-large;
+    color: white;
+    font-weight: bold;
+    line-height:60px;
+
+    h1{
+      color: #fff;
+      cursor: pointer;
+    }
+  }
+  .right{
+    color: #fff;
+    font-weight: bold;
+    font-size: @fz-middle;
+    cursor: pointer;
+
+
+
+    .phonewrap{
+      position: relative;
+      &:hover{
+        .icon{
+          transform: rotate(-180deg);
+        }
+        .menu-container{
+          display: block;
+        }
+      }
+      .icon{
+        display: inline-block;
+        transition: all 0.3s;
+      }
+      .userphone{
+        margin-right: 15px;
+      }
+
+      .menu-container{
+        position: absolute;
+        left: 0;
+        display: none;
+        .sub{
+          background-color: #fff;
+          border-radius: 8px;
+          text-align: center;
+          box-shadow: 0 2px 8px rgba(26,26,26,.2);
+          padding: 4px 0
+        }
+        li{
+          line-height: 2.5em;
+          padding: 0 2em;
+          color: @text-color;
+          font-size: @fz-small;
+          &:hover{
+            background: @success-color;
+            color: white;
+          }
+        }
+      }
+
+    }
+
+
+  }
+}

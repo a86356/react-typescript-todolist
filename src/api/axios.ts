@@ -1,5 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosError, AxiosResponse } from "axios";
-axios.defaults.timeout = 10000;
+import {message} from "antd";
+import {getCache} from "@/utils/CacheUtils";
+axios.defaults.timeout = 100000;
 axios.defaults.baseURL =
   process.env.NODE_ENV === "production"
     ? "https://www.weixin1234.top/index.php/" // 这里设置实际项目的生产环境地址
@@ -20,6 +22,15 @@ axios.interceptors.request.use(
     // if (config.params) config.params._t = Date.now();
     // token
 //    console.log("request 拦截...");
+
+      const token = getCache('token');
+      config.headers = {
+          'Content-Type':' application/json',
+      }
+      if(token){
+          config.headers['token']=token
+      }
+      
     return config;
   },
   (err: AxiosError) => {
@@ -33,6 +44,12 @@ axios.interceptors.response.use(
 
     //code ==0 success
     // code !=0 fail msg
+    const {code,msg}=res.data
+    if(code!=='0'){
+        message.error(msg)
+        return null
+    }
+
     return res.data;
   },
   (err: AxiosError) => {

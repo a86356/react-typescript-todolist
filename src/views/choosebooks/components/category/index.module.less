@@ -1,0 +1,20 @@
+@import "src/assets/style/antd";
+
+.choosebook_category_left{
+  width: 180px;
+  overflow-y: auto;
+  height: 700px;
+  li{
+    line-height: 90px;
+    text-align: center;
+    font-size: @fz-large;
+    cursor: pointer;
+    &:hover{
+      background: @bg-color-light-grey;
+    }
+  }
+  .active{
+    background: @bg-color-light-grey;
+    color: @primary-color;
+  }
+}

@@ -1,0 +1,41 @@
+@import '~antd/dist/antd.css';
+@import "src/assets/style/boxsize";
+@import "src/assets/style/color";
+@import "src/assets/style/font";
+
+@body-width:1300px;
+body{
+  //-webkit-touch-callout: none;
+  //-moz-user-select: none; /*火狐*/
+  //-webkit-user-select: none;  /*webkit浏览器*/
+  //-ms-user-select: none;   /*IE10*/
+  //-khtml-user-select: none; /*早期浏览器*/
+  //user-select: none;
+  background: @bg-color-deep-grey;
+}
+.bookbase{
+  padding: 10px;
+  width: 140px;
+  height: 200px;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  color: #fff;
+  border-radius: @radius-large;
+  font-size: @fz-large;
+  font-weight: bold;
+}
+
+.bodycontainer{
+  width: @body-width;
+  margin: 0 auto;
+  background: #fff;
+}
+
+
+.red{
+  color: red;
+}
+.green{
+  color: green;
+}

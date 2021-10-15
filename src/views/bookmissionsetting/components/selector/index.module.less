@@ -1,0 +1,30 @@
+@import "src/assets/style/antd";
+.itemwrap{
+  height: 200px;
+  overflow-y: auto;
+  width: 400px;
+  border:1px solid #ccc;
+  border-radius: @radius-large;
+  text-align: center;
+  .item{
+    line-height: 40px;
+    font-size: @fz-large;
+    cursor: pointer;
+    &:hover{
+      background: @bg-color-light-grey;
+    }
+  }
+}
+.daystudy{
+  color: @text-color;
+  font-size: @fz-large;
+  height: 30px;
+  line-height:30px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.active{
+  background: @bg-color-light-grey;
+  color: @success-color;
+}

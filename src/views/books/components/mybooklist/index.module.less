@@ -1,0 +1,46 @@
+@import "src/assets/style/antd";
+.books{
+  background: #fff;
+  color: @text-color;
+}
+
+.mybooks{
+  .title{
+    display: flex;
+    justify-content: space-between;
+    .addbook{
+      display: flex;
+
+      border:1px solid @primary-color;
+      color: @primary-color;
+      border-radius: @radius-very-large;
+      cursor: pointer;
+      &:hover{
+        text-decoration: underline;
+      }
+      i{
+        margin-top: 1px;
+      }
+      span{
+        margin-top: 4px;
+        margin-left: 3px;
+      }
+    }
+  }
+  .list{
+    display: grid;
+    flex-wrap: wrap;
+    grid-template-columns: 1fr 1fr;
+    grid-row-gap: 20px;
+    grid-column-gap: 20px;
+    .item{
+      background: @bg-color-light-grey;
+      display: flex;
+      width: 100%;
+      border-radius: @radius-large;
+      .title{
+
+      }
+    }
+  }
+}

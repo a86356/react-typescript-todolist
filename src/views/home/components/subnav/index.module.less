@@ -1,0 +1,24 @@
+@import "src/assets/style/antd";
+
+.subnav_wrap{
+  width: @body-width;
+  margin: 0 auto;
+  background: @bg-color-deep-grey;
+  color: @text-color;
+  ul{
+    display: flex;
+    li{
+      font-size: @fz-middle;
+      color: @text-color;
+      padding: 0 15px;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      &:hover{
+        border-bottom: 2px solid @primary-color;
+      }
+    }
+    .active{
+      border-bottom: 2px solid @primary-color;
+    }
+  }
+}

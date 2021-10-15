@@ -1,0 +1,69 @@
+@import "src/assets/style/antd";
+
+.nowbook{
+  border-radius: @radius-large;
+  .top{
+    display: flex;
+    justify-content: space-between;
+    .wordlisttip{
+      position: relative;
+      color: #fff;
+      background: @primary-color;
+
+      border-radius: @radius-very-large;
+      cursor: pointer;
+      &:hover{
+
+        &:hover{
+          text-decoration: underline;
+        }
+      }
+      .tit{
+        font-size: @fz-middle;
+        margin-left: 5px;
+        margin-top: 5px;
+      }
+      .icon_arrow{
+        font-size: @fz-middle;
+      }
+    }
+    h2{
+      font-weight: bold;
+      font-size: @fz-large;
+      line-height: 30px;
+    }
+  }
+  .bookitem{
+    background: @bg-color-light-grey;
+    display: flex;
+    padding: 20px;
+    .left{
+      .bookbase;
+      background: #00AE94;
+    }
+    .right{
+      margin-left: 20px;
+      flex: 1;
+      .title{
+        display: flex;
+        justify-content: space-between;
+
+        .setnums{
+          cursor: pointer;
+          color: @text-color;
+          &:hover{
+            text-decoration: underline;
+          }
+        }
+      }
+      .finish_time{
+        font-weight: bold;
+      }
+      .progressbarwrap{
+        margin-top: 80px;
+
+      }
+
+    }
+  }
+}

@@ -1,0 +1,44 @@
+@import "src/assets/style/antd";
+
+
+.hd{
+  display: flex;
+  margin-top: 50px;
+  border: 1px solid #ccc;
+  padding: 15px;
+  cursor: pointer;
+  text-align: center;
+  font-size: @fz-large;
+  cursor: pointer;
+  .hd_item{
+    flex: 1;
+    border-right:1px solid #ccc;
+    &:last-child{
+      border-right:none;
+    }
+  }
+
+}
+.bd{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-size: @fz-large;
+  height: 400px;
+  overflow: auto;
+}
+.bd_line{
+  display: flex;
+  padding: 15px;
+  border: 1px solid #ccc;
+}
+.bd_item{
+  text-align: center;
+  flex: 1;
+  border-right: 1px solid #ccc;
+  &:last-child{
+    border-right: none;
+  }
+}
+
+

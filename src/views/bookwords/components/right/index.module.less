@@ -1,0 +1,30 @@
+@import "src/assets/style/antd";
+.bookwords{
+  background: #fff;
+  color: @text-color;
+  display: flex;
+}
+
+
+.active{
+  background: @bg-color-light-grey;
+  color: @primary-color;
+  border-right: 2px solid @primary-color;
+}
+.bookwords_right{
+  flex: 1;
+  width: 100%;
+  padding-bottom: 30px;
+  display: grid;
+  flex-wrap: wrap;
+  grid-template-columns: 1fr 1fr;
+  grid-row-gap: 30px;
+  grid-column-gap: 30px;
+}
+
+.bookwords_right_top{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom:10px;
+  font-size: 24px;
+}

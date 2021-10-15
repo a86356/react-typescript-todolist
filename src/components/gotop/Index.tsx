@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import './index.less'
-import {debounce, isReachBottom} from "@/utils/CommonUtils";
-import {ActionType} from "@/store/newlist/newslist";
+import React, {useEffect, useState} from "react";
+import css from './index.module.less'
+import {isReachBottom} from "@/utils/CommonUtils";
 
 const GoTop = () => {
   const [show, setShow] = useState<boolean>(false);
@@ -22,7 +21,7 @@ const GoTop = () => {
     }
 
   return (
-    <div className={`gotop-wrap ${show?'':'hide'}`} onClick={()=>{
+    <div className={`${css.gotop_wrap} ${show?'':'hide'}`} onClick={()=>{
         const scrollToptimer = setInterval(function() {
             const top = document.body.scrollTop || document.documentElement.scrollTop;
             const speed = top / 30;

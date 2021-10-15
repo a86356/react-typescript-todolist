@@ -1,0 +1,32 @@
+@import "src/assets/style/antd";
+
+
+.item{
+  background: @bg-color-light-grey;
+  display: flex;
+  width: 100%;
+  border-radius: @radius-large;
+  .title{
+
+  }
+  .right{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .bottom{
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    i:hover{
+      color: @error-color;
+    }
+    .study{
+      padding: 4px 10px;
+      color: #28bea0;
+      background: #e3f6f2;
+      border-radius: @radius-large;
+    }
+  }
+}
