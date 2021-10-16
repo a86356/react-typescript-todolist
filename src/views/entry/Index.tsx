@@ -1,9 +1,9 @@
 import React from "react";
 import css from './index.module.less'
-import NowBook from "@/views/books/components/nowbook/Index";
-import MyBookList from "@/views/books/components/mybooklist/Index";
+import NowBook from "@/views/entry/components/nowbook/Index";
+import MyBookList from "@/views/entry/components/mybooklist/Index";
 
-const Books= () => {
+const Entry= () => {
     return (
     <div className={`bodycontainer ${css.book} p20`} >
         <NowBook/>
@@ -13,4 +13,4 @@ const Books= () => {
   );
 };
 
-export default Books;
+export default Entry;

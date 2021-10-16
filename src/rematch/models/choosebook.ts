@@ -2,6 +2,7 @@ import {createModel} from '@rematch/core'
 import type {RootModel} from '../models'
 import apis from "@/api/apis";
 
+
 export const choosebook = createModel<RootModel>()({
     state: {
         searchInputValue:'',

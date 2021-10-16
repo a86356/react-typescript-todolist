@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import { useHistory } from "react-router-dom";
 
 import {useDispatch, useSelector} from "react-redux";
 import {getCache} from "@/utils/CacheUtils";
@@ -7,6 +8,8 @@ import {Dispatch, RootState} from "@/rematch";
 import css from './index.module.less'
 import {hidePhone} from "@/utils/CommonUtils";
 import { Modal, Button } from 'antd';
+import {Router_type} from "@/const/const";
+
 const Header = () => {
     const {phone} = useSelector((state:RootState) => {
         let phone = state.home.userPhone
@@ -20,23 +23,16 @@ const Header = () => {
     });
   const dispatch = useDispatch<Dispatch>();
   const [isShow,setIsShow] = useState<boolean>(false)
+  const history = useHistory();
 
   return (
     <div className="container-wrap">
-        <Modal title="系统快捷键" visible={isShow} onOk={()=>{
-            setIsShow(false)
-        }} onCancel={()=>{
-            setIsShow(false)
-        }}>
-            <p>键盘数字1,立即播放声音</p>
-            <p>键盘数字2,认识单词,进入下一个单词</p>
-            <p>键盘数字3,不认识单词,进入下一个单词</p>
-            <p>键盘数字4,收藏该单词,方便复习</p>
-            <p>需要其他快捷键功能的,请联系微信:100000356</p>
-        </Modal>
-        <div className={`${css.header} h60 lh60 fz20`}>
-            <div className={`${css.left}`}>
-                <img className={'w50 h50'} src="http://cdn.weixin1234.top/logo2.png" alt=""/>
+
+        <div className={`${css.header} h60 lh60 fz20`} style={{cursor:'pointer'}}>
+            <div className={`${css.left}`} onClick={()=>{
+                history.push({ pathname: Router_type.HOME_PATH, state: {} });
+            }}>
+                <img  className={'w50 h50'} src="http://cdn.weixin1234.top/logo2.png" alt=""/>
                 <h1>简一英语</h1>
             </div>
             <div className={`${css.middle}`}>
@@ -70,6 +66,17 @@ const Header = () => {
                 </div>
             </div>
         </div>
+        <Modal title="系统快捷键" visible={isShow} onOk={()=>{
+            setIsShow(false)
+        }} onCancel={()=>{
+            setIsShow(false)
+        }}>
+            <p>键盘数字1,立即播放发音</p>
+            <p>键盘数字2,认识单词,进入下一个单词</p>
+            <p>键盘数字3,不认识单词,进入下一个单词</p>
+            <p>键盘数字4,收藏该单词,方便复习</p>
+            <p>需要其他快捷键功能的,请联系微信:100000356</p>
+        </Modal>
     </div>
   );
 };

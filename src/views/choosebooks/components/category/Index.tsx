@@ -17,7 +17,7 @@ const CategoryList= () => {
 
     useEffect(()=>{
         dispatch.choosebook.getAllCategoryAsync(-1)
-    })
+    },[])
 
     useEffect(()=>{
         if(categoryId===0){return}

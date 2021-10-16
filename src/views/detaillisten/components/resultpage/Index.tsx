@@ -8,7 +8,7 @@ import {Dispatch, RootState} from "@/rematch";
 import {IWordItem} from "@/rematch/models/study";
 import { Result, Button } from 'antd';
 import {useHistory} from "react-router-dom";
-import {HOME_PATH} from "@/const/const";
+import {Router_type} from "@/const/const";
 
 interface Data{
     isShow:boolean
@@ -27,7 +27,7 @@ const ResultPage= (p:Data) => {
                 subTitle={subtitle}
                 extra={[
                     <Button type="primary" key="console" onClick={()=>{
-                        history.push({ pathname: HOME_PATH, state: {  } });
+                        history.push({ pathname: Router_type.HOME_PATH, state: {  } });
                     }}>
                         返回首页
                     </Button>,

@@ -5,7 +5,7 @@ import BookList from "@/views/choosebooks/components/booklist/Index";
 
 const ChooseBooks= () => {
     return (
-    <div className={`bodycontainer`} >
+    <div className={`bodycontainer p20`} >
         <SearchBar/>
         <div style={{display:"flex"}}>
             <CategoryList/>

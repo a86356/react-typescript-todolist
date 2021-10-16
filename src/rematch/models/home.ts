@@ -5,16 +5,7 @@ import apis from "@/api/apis";
 import {clearCache, setCache} from "@/utils/CacheUtils";
 import {DEFAULT_YB, PHONE, TOKEN} from "@/const/const";
 
-export interface HomeInitialState {
-    isShowLoginForm:boolean;
-    isShowLoginLoading:boolean;
-    isShowRegisterForm:boolean
-    isShowRegisterLoading:boolean;
-    userPhone:string;
-    isShowForgetpwdForm:boolean
-    isShowForgetpwdLoading:boolean;
-    selectedSubNavId:number
-}
+import {SubNav_type} from "@/const/const";
 
 export const home = createModel<RootModel>()({
     state: {
@@ -25,7 +16,7 @@ export const home = createModel<RootModel>()({
         userPhone:'',
         isShowForgetpwdForm:false,
         isShowForgetpwdLoading:false,
-        selectedSubNavId:1
+        selectedSubNavId:SubNav_type.WORD_STUDY
     } as HomeInitialState,
     reducers: {
         set_isShowLoginForm(state, payload:boolean) {
@@ -105,7 +96,6 @@ export const home = createModel<RootModel>()({
             const p= await apis.post('dancife/getuserinfo',payload);
             if(p){
                 const data = p.data;
-                console.log(data)
                 setCache(DEFAULT_YB,data.fy)
             }
         },
@@ -126,4 +116,14 @@ interface ForgetpwdData{
     phone:string,
     password:string,
     code:string,
+}
+export interface HomeInitialState {
+    isShowLoginForm:boolean;
+    isShowLoginLoading:boolean;
+    isShowRegisterForm:boolean
+    isShowRegisterLoading:boolean;
+    userPhone:string;
+    isShowForgetpwdForm:boolean
+    isShowForgetpwdLoading:boolean;
+    selectedSubNavId:number
 }
