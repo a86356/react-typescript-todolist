@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import css from './index.module.less'
-import MyBookItem from "@/views/books/components/mybookitem/Index";
+import MyBookItem from "@/views/entry/components/mybookitem/Index";
 import MyPagination from "@/components/pagination/Index";
 import {useDispatch, useSelector} from "react-redux";
 import MyEmpty from "@/components/empty/Index";
