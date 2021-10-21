@@ -26,12 +26,9 @@ const Pic= () => {
             }} onMouseOut={()=>{
                 setShowpic(false)
             }} />
-            <BigPic width={'300px'} height={'300px'} pic={current.pics} left={'200px'} top={'10px'} isshow={showpic}/>
+            <BigPic width={'300px'} height={'auto'} pic={current.pics} left={'200px'} top={'20px'} isshow={showpic}/>
         </div>
-
     );
-
-
 
 };
 

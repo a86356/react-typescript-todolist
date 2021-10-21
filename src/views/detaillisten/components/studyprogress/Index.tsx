@@ -26,10 +26,10 @@ const Studyprogress= (data:P) => {
         }
     });
    useEffect(()=>{
-       dispatch.study.getuserstudytodaybase({
+       dispatch.study.getuserstudytodaybaseAsync({
            book_id:book_id
        })
-   },[pageNum,current])
+   },[todayStudyCurrentIndex])
 
     return (
         <div className={`${css.progress_wrap}`}>

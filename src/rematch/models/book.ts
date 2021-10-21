@@ -91,11 +91,24 @@ export const book = createModel<RootModel>()({
                 window.location.reload()
             },1000)
         },
+        async getstudynumAsync(payload: number, state){
+            const dis=dispatch.book;
+
+            const p= await apis.post('dancife/getstudynum',payload);
+            if(p){
+                const data = p.data;
+                dis.set_nowHasFinishedNum(data['count'])
+            }
+        },
+
     }),
 })
+interface IBookid{
+    book_id:number
+}
 
 interface deleteData{
-    book_id:string;
+    book_id:number;
 }
 
 export interface BookInitialState {

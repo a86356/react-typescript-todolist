@@ -27,27 +27,26 @@ const Header = () => {
 
   return (
     <div className="container-wrap">
-
         <div className={`${css.header} h60 lh60 fz20`} style={{cursor:'pointer'}}>
             <div className={`${css.left}`} onClick={()=>{
                 history.push({ pathname: Router_type.HOME_PATH, state: {} });
             }}>
-                <img  className={'w50 h50'} src="http://cdn.weixin1234.top/logo2.png" alt=""/>
-                <h1>简一英语</h1>
+                {/*<img  className={'w50 h50'} src="http://cdn.weixin1234.top/logo2.png" alt=""/>*/}
+                {/*<h1>淘宝店/微信公众号 : 简一英语</h1>*/}
             </div>
             <div className={`${css.middle}`}>
-                {/*<h1>购买速记单词软件,请搜索淘宝店铺:简一英语</h1>*/}
-                <a onClick={()=>{
-                    setIsShow(true)
-                }}>使用快捷键</a>
+                <h1>淘宝店/微信公众号 : 简一英语</h1>
+                {/*<a onClick={()=>{*/}
+                {/*    setIsShow(true)*/}
+                {/*}}>使用快捷键</a>*/}
             </div>
             <div className={`${css.right}`}>
                 <div className={`${css.login} ${isEmpty(phone)?'':'hide'}`}>
-                    <a className={'fz20'} onClick={()=>{
+                    <a className={'fz20 white'} onClick={()=>{
                         dispatch.home.set_isShowRegisterForm(true)
                     }}>注册 </a>
-                    <a className={'fz20'}> / </a>
-                    <a className={'fz20'} onClick={()=>{
+                    <a className={'fz20 white'}> / </a>
+                    <a className={'fz20 white'} onClick={()=>{
                         dispatch.home.set_isShowLoginForm(true)
                     }}> 登陆</a>
                 </div>

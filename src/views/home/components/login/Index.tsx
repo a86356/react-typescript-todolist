@@ -53,7 +53,9 @@ const Login = () => {
                                  message.error("手机号码格式错误");
                                  return
                              }
-                             dispatch.home.loginAsync(formdata)
+                             dispatch.home.loginAsync({...formdata,cb:()=>{
+                                window.location.reload()
+                             }})
                          }}
                  >
                      登陆

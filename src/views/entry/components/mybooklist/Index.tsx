@@ -5,6 +5,8 @@ import MyPagination from "@/components/pagination/Index";
 import {useDispatch, useSelector} from "react-redux";
 import MyEmpty from "@/components/empty/Index";
 import {Dispatch, RootState} from "@/rematch";
+import {useHistory} from "react-router-dom";
+import {Router_type} from "@/const/const";
 
 const MyBookList= () => {
     const pageSize = 4;
@@ -17,6 +19,7 @@ const MyBookList= () => {
         }
     });
     const dispatch = useDispatch<Dispatch>();
+    const history = useHistory();
 
     useEffect(()=>{
         dispatch.book.getMyBookListAsync({
@@ -27,12 +30,16 @@ const MyBookList= () => {
 
     return (
     <>
+
+
         <div className={`${css.mybooks}`}>
             <div className={`${css.title} mb20 mt20`}>
                 <h1 className={'fz20 lh30'}>我的课本 (共{count}本)</h1>
-                <div className={`${css.addbook} pl10 pr10 fz16 lh30`}>
+                <div className={`${css.addbook} pl10 pr10 fz16 `} onClick={()=>{
+                    history.push({pathname:Router_type.CHOOSE_BOOK})
+                }}>
                     <i className={'iconfont'}>&#xe655;</i>
-                    <span >添加新书</span>
+                    <span style={{marginLeft:"4px"}} >添加新书</span>
                     <i className={'iconfont'}>&#xe68c;</i>
                 </div>
             </div>
@@ -40,7 +47,7 @@ const MyBookList= () => {
                 {
                     list.map(item=>{
                         return (
-                            <MyBookItem key={item.id} pic={item.pic} id={item.id} book_name={item.book_name} total={item.count} hasfinished={item.hasfinished}/>
+                            <MyBookItem key={item.id} pic={item.pic} book_id={item.id} book_name={item.book_name} total={item.count} hasfinished={item.hasfinished}/>
                         )
                     })
                 }

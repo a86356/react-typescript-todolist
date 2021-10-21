@@ -13,8 +13,9 @@ export const bookmissionsetting = createModel<RootModel>()({
         nowTotalCount:0,
         studyScheduleList:[],
         planStudyNum:10,
-        isLoadingTable:false
-    } as BookInitialState,
+        isLoadingTable:false,
+        isLoading:false
+    } as BookMissionInitialState,
     reducers: {
         set_nowPic(state, payload: string) {
             return {...state,nowPic:payload}
@@ -43,7 +44,9 @@ export const bookmissionsetting = createModel<RootModel>()({
         set_isLoadingTable(state, payload: boolean) {
             return {...state,isLoadingTable:payload}
         },
-
+        set_isLoading(state, payload: boolean) {
+            return {...state,isLoading:payload}
+        },
     },
     effects: (dispatch) => ({
         async getStudyBookAsync(data:bookinfoQuery, state) {
@@ -69,11 +72,13 @@ export const bookmissionsetting = createModel<RootModel>()({
         },
         async finishdaystudynumberAsync(data:finishdaystudynumberPost, state) {
             const dis=dispatch.bookmissionsetting;
-
+            dis.set_isLoading(true)
             const p= await apis.post('dancife/finishdaystudynumber',data);
             if(p){
                 const data =p.data;
                 message.success('设置成功~~')
+                dis.set_isLoading(false)
+
             }
         },
 
@@ -94,7 +99,7 @@ interface bookinfoQuery{
     book_id:number ;
 }
 
-export interface BookInitialState {
+export interface BookMissionInitialState {
     nowPic:string;
     nowBookId:number;
     nowTitle:string;
@@ -104,5 +109,6 @@ export interface BookInitialState {
     studyScheduleList:[];
     planStudyNum:number;
     isLoadingTable:boolean
+    isLoading:boolean
 }
 

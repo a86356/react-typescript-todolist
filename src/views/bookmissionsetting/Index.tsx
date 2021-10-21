@@ -5,6 +5,13 @@ import {Dispatch, RootState} from "@/rematch";
 import MyBookItem from "@/views/bookmissionsetting/components/mybookitem/Index";
 import Selector from "@/views/bookmissionsetting/components/selector/Index";
 import Table from "@/views/bookmissionsetting/components/table/Index";
+import {useParams} from "react-router-dom";
+import {Modal} from "antd";
+
+type Param ={
+    id:string
+}
+
 const BookMissionSetting= () => {
     const {nowTotalCount,nowTitle,nowPic,nowBookId,nowFinishTime,nowHasFinishedNum} = useSelector((state:RootState) => {
         const s = state.bookmissionsetting
@@ -18,8 +25,8 @@ const BookMissionSetting= () => {
         }
     });
     const dispatch = useDispatch<Dispatch>();
-
-    const book_id =4
+    const {id} = useParams<Param>()
+    const book_id =parseInt(id)
 
     useEffect(()=>{
         dispatch.bookmissionsetting.set_nowBookId(book_id)
@@ -28,9 +35,10 @@ const BookMissionSetting= () => {
         })
 
     },[])
-
     return (
        <div className={`bodycontainer p20`}>
+
+
             <div className={`${css.books_mission_setting} `} >
                 <div className={`${css.left}`}>
                     <MyBookItem nowFinishTime={nowFinishTime} id={nowBookId} book_name={nowTitle} total={nowTotalCount} hasfinished={nowHasFinishedNum} pic={nowPic}/>
@@ -39,9 +47,9 @@ const BookMissionSetting= () => {
                     <Selector/>
                 </div>
             </div>
-            <div className={`${css.tablewrap}`}>
-                <Table book_id={book_id} />
-            </div>
+            {/*<div className={`${css.tablewrap}`}>*/}
+            {/*    <Table book_id={book_id} />*/}
+            {/*</div>*/}
        </div>
     );
 };

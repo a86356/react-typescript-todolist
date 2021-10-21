@@ -1,16 +1,19 @@
 import React, {useEffect} from "react";
 import css from './index.module.less'
-import {Input, Popover, Tag, Tooltip} from 'antd';
 
 import {useDispatch, useSelector} from "react-redux";
 import {Dispatch, RootState} from "@/rematch";
-import {CheckCircleOutlined, CloseCircleOutlined,} from '@ant-design/icons';
 import Studyprogress from "@/views/batchlisten/components/studyprogress/Index";
 import {getDefaultPlayPhontic} from "@/utils/CommonUtils";
 import {isEmpty} from "@/utils/ValidateUtils";
 import MyPagination from "@/components/pagination/Index";
 import BatchList from "@/views/batchlisten/components/list/Index";
 import Loading from "@/components/loading/Index";
+import {useParams} from "react-router-dom";
+type Param={
+    type:string,
+    id:string
+}
 
 const BatchListen= () => {
     const dispatch = useDispatch<Dispatch>();
@@ -26,7 +29,10 @@ const BatchListen= () => {
             isLoading:s.isLoading
         }
     });
-    const book_id=4
+    const param = useParams<Param>()
+
+    const book_id= parseInt(param.id)
+    const type= parseInt(param.type)
 
     useEffect(()=>{
         dispatch.study.set_pageSize(20)
@@ -37,6 +43,7 @@ const BatchListen= () => {
             type:1,
             isPage:true
         })
+
     },[pageSize])
 
     const play = (e_word:string)=>{
@@ -52,10 +59,10 @@ const BatchListen= () => {
     return (
         <div className={`bodycontainer ${css.batch_wrap} ` } >
 
-            <div className={`${css.left}`}>
-                <Studyprogress book_id={4}/>
+            <div style={{width:'100%'}}>
+                <Studyprogress book_id={book_id}/>
             </div>
-            <BatchList book_id={book_id}/>
+            <BatchList book_id={book_id} study_type={type}/>
             <Loading isLoading={isLoading}/>
             <MyPagination total={todayStudyCount} callback={()=>{
                 const m=  pageNum+1

@@ -17,15 +17,14 @@ function App(): JSX.Element {
       <BrowserRouter>
         <Home/>
         <Switch>
-          <Route path="/" exact component={ChooseBooks} />
-          <Route path="/entry" exact component={Entry} />
+          <Route path="/" exact component={Entry} />
           <Route path="/ad" exact component={Ad} />
           <Route path="/studyprogress" exact component={StudyProgress} />
-          <Route path="/bookwords" exact component={BooksWords} />
-          <Route path="/batchlisten" exact component={BatchListen} />
-          <Route path="/detaillisten" exact component={Detaillisten} />
+          <Route path="/bookwords/:id/study_type/:study_type" exact component={BooksWords} />
+          <Route path="/batchlisten/:id/study_type/:type" exact component={BatchListen} />
+          <Route path="/detaillisten/:id/study_type/:type" exact component={Detaillisten} />
           <Route path="/setting" exact component={Setting} />
-          <Route path="/bookmissionsetting" exact component={BookMissionSetting} />
+          <Route path="/bookmissionsetting/:id" exact component={BookMissionSetting} />
           <Route path="/choosebooks" exact component={ChooseBooks} />
         </Switch>
       </BrowserRouter>

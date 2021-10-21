@@ -5,6 +5,7 @@ import {Dispatch, RootState} from "@/rematch";
 import {Router_type, SubNav_type} from "@/const/const";
 import { useHistory } from "react-router-dom";
 import {RadiusUpleftOutlined} from "@ant-design/icons";
+import * as path from "path";
 
 
 const SubNav = () => {
@@ -19,10 +20,11 @@ const SubNav = () => {
     const history = useHistory();
 
     const [navlist]=useState([
-        {id:SubNav_type.WORD_STUDY, name:'单词学习'},
-        {id:SubNav_type.WORD_BOOK_SELECT, name:'单词书选择'},
-        {id:SubNav_type.STUDY_PROGRESS, name:'学习进度'},
-        {id:SubNav_type.STUDY_SETTING, name:'设置'},
+        {id:SubNav_type.WORD_STUDY, name:'单词学习',path:Router_type.HOME_PATH},
+        // {id:SubNav_type.WORD_BOOK_SELECT, name:'单词书选择'},
+        {id:SubNav_type.STUDY_PROGRESS, name:'学习进度',path:Router_type.STUDY_PROGRESS},
+        {id:SubNav_type.STUDY_SETTING, name:'设置',path:Router_type.ENV_SETTING},
+        {id:SubNav_type.AD, name:'联系客服',path:Router_type.AD},
     ])
 
     return (
@@ -35,19 +37,7 @@ const SubNav = () => {
                             onClick={()=>{
                                 const id = item.id
                                 dispatch.home.set_selectedSubNavId(id)
-                                //设置
-                                if(id==SubNav_type.STUDY_SETTING){
-                                    history.push({pathname:Router_type.ENV_SETTING})
-                                }
-                                //学习进度
-                                if(id==SubNav_type.STUDY_PROGRESS){
-                                    history.push({pathname:Router_type.STUDY_PROGRESS})
-                                }
-                                //单词书的选择
-                                if(id==SubNav_type.WORD_BOOK_SELECT){
-                                    history.push({pathname:Router_type.CHOOSE_BOOK})
-                                }
-                                //广告
+                                history.push({pathname:item.path})
 
                             }}
                         >

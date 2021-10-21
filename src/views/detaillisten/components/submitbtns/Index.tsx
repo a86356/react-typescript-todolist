@@ -7,7 +7,13 @@ import {NEXT_FAIL,NEXT_OK} from "@/const/const";
 import {IWordItem} from "@/rematch/models/study";
 import {Tooltip} from "antd";
 
-const SubmitBtns= () => {
+
+interface D{
+    study_type:number
+    book_id:number
+}
+const SubmitBtns= (props:D) => {
+    const {study_type,book_id} = props
     const dispatch = useDispatch<Dispatch>();
     const {pageSize,pageNum,todayStudyCurrentIndex,current,todayStudyList,todayStudyCount} = useSelector((state:RootState) => {
         const s = state.study
@@ -20,32 +26,25 @@ const SubmitBtns= () => {
             pageSize:s.pageSize
         }
     });
-    const book_id=4
 
     const go_next=(result:number)=>{
-        const c=todayStudyCurrentIndex
-        const now:IWordItem = todayStudyList[c]
-        console.log(now)
+        const now_idx=todayStudyCurrentIndex
+
+        const now:IWordItem = todayStudyList[now_idx]
+        console.log(now.e_word,now.num_id)
         dispatch.study.updatestudyprogress({
             book_id:now.book_id,
             result:result,
-            e_word:now.e_word
+            e_word:now.e_word,
+            study_type:study_type
         })
-        dispatch.study.set_todayStudyCurrentIndex(c+1)
-        dispatch.study.set_todayStudyCurrent(todayStudyList[c+1])
-
-    }
-    useEffect(()=>{
-        //再加载一次
+        const next= now_idx+1
+        dispatch.study.set_todayStudyCurrentIndex(next)
+        dispatch.study.set_todayStudyCurrent(todayStudyList[next])
         dispatch.study.set_pageNum(pageNum+1)
-        dispatch.study.getTodayStudyAsync({
-            book_id:book_id,
-            pageNum:pageNum,
-            pageSize:pageSize,
-            type:1,
-            isPage:false
-        })
-    },[(todayStudyCurrentIndex+1)%5==0])
+    }
+
+
 
     const press=(e:KeyboardEvent)=>{
         if(e.keyCode==NEXT_OK.keycode){ // 9
@@ -79,8 +78,6 @@ const SubmitBtns= () => {
             </Tooltip>
         </div>
     );
-
-
 
 };
 

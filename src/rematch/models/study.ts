@@ -33,7 +33,8 @@ const c={
     c_word_list:[],
     is_collected:0,
     is_test_right:0,
-    is_now_test_right:0
+    is_now_test_right:0,
+    num_id:0
 }
 export const study = createModel<RootModel>()({
     state: {
@@ -42,10 +43,11 @@ export const study = createModel<RootModel>()({
         todayStudyCurrent: c,
         todayStudyCurrentIndex: 0,
         pageSize: 10,
+        pageSizeMax:500,
         pageNum: 1,
         todayStudyNum:0,
         todayReviewNum:0,
-        isLoading:false
+        isLoading:false,
     }  as StudyInitialState,
     reducers: {
         set_todayStudyList(state, payload:Array<IWordItem>) {
@@ -86,9 +88,6 @@ export const study = createModel<RootModel>()({
         async getTodayStudyAsync(datamy:ITodayStudy, state) {
             const dis = dispatch.study;
             dis.set_isLoading(true)
-            // if(datamy.isPage){
-            //     dis.set_todayStudyList([])
-            // }
 
             const p= await apis.post('dancife/gettodaywords',datamy);
             dis.set_isLoading(false)
@@ -138,18 +137,19 @@ export const study = createModel<RootModel>()({
                 if(datamy.isPage){
                     dis.set_todayStudyList(list)
                 }else{
-                    dis.set_todayStudyList([...state.study.todayStudyList,...list])
+                    const nw = [...state.study.todayStudyList,...list]
+                    dis.set_todayStudyList(nw)
                 }
 
                 dis.set_todayStudyCount(data['count'])
 
-                if(isEmpty(state.study.todayStudyCurrent.e_word)){
+                if(isEmpty(state.study.todayStudyCurrent.e_word) && list.length>0){
+
                     dis.set_todayStudyCurrent(list[0])
                 }
             }
         },
         async updatestudyprogress(data:IUpdateProgress, state) {
-            const dis = dispatch.study;
             const p= await apis.post('dancife/updatemywords',data);
             if(p){
                 const data = p.data;
@@ -162,7 +162,7 @@ export const study = createModel<RootModel>()({
                 const data = p.data;
             }
         },
-        async getuserstudytodaybase(data:Igetuserstudytodaybase, state) {
+        async getuserstudytodaybaseAsync(data:Igetuserstudytodaybase, state) {
             const dis = dispatch.study;
             const p= await apis.post('dancife/getuserstudytodaybase',data);
             if(p){
@@ -198,7 +198,8 @@ interface IUpdateuserwordcollected{
 interface IUpdateProgress {
     book_id:number,
     e_word:string,
-    result:number
+    result:number,
+    study_type:number
 }
 
 export interface IWordItem{
@@ -230,6 +231,7 @@ export interface IWordItem{
     is_collected:number
     is_test_right:number
     is_now_test_right:number
+    num_id:number
 }
 
 interface IAddBook {
@@ -242,6 +244,7 @@ export interface StudyInitialState {
     todayStudyCount:number,
     pageNum:number,
     pageSize:number,
+    pageSizeMax:number,
     todayStudyCurrent:IWordItem,
     todayStudyCurrentIndex:number,
     todayStudyNum:number,

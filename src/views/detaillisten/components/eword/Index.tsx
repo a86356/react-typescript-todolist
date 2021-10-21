@@ -8,11 +8,12 @@ import {COLLECTION} from "@/const/const";
 interface D{
     e_word:string;
     is_collected:number
+    num_id:number
 }
 
 
 const EWord= (props:D) => {
-    const {e_word} = props
+    const {e_word,num_id} = props
     const {todayStudyCurrentIndex,current,todayStudyList,todayStudyCount} = useSelector((state:RootState) => {
         const s = state.study
         return {
@@ -56,14 +57,17 @@ const EWord= (props:D) => {
     return (
         <div className={`${css.e_word}`}>
             <Tooltip placement="top" title={`按键盘${COLLECTION.value}可收藏单词`}>
-                <span>{e_word}</span>
+                <span>{num_id}.{e_word}</span>
             </Tooltip>
             <span>
-                <i className={`iconfont ${css.e_word_collected} ${current.is_collected==1?css.active:''}`}
-                    onClick={()=>{
-                        updatecollected()
-                    }}
-                >&#xe612;</i>
+                  <Tooltip placement="top" title={`点我收藏单词`}>
+                     <i className={`iconfont ${css.e_word_collected} ${current.is_collected==1?css.active:''}`}
+                        onClick={()=>{
+                            updatecollected()
+                        }}
+                     >&#xe612;</i>
+                 </Tooltip>
+
             </span>
         </div>
     );

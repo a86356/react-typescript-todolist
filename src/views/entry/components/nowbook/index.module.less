@@ -6,26 +6,15 @@
     display: flex;
     justify-content: space-between;
     .wordlisttip{
-      position: relative;
-      color: #fff;
-      background: @primary-color;
 
-      border-radius: @radius-very-large;
       cursor: pointer;
-      &:hover{
-
+      span{
         &:hover{
           text-decoration: underline;
+          color:@success-color
         }
       }
-      .tit{
-        font-size: @fz-middle;
-        margin-left: 5px;
-        margin-top: 5px;
-      }
-      .icon_arrow{
-        font-size: @fz-middle;
-      }
+
     }
     h2{
       font-weight: bold;
@@ -66,4 +55,7 @@
 
     }
   }
+}
+.my_btn{
+  margin-right: 5px;
 }

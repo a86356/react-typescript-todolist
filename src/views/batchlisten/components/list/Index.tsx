@@ -11,10 +11,11 @@ import {IWordItem} from '@/rematch/models/study'
 
 interface D{
     book_id:number,
+    study_type:number
 }
 
 const BatchList= (props:D) => {
-    const {book_id} = props
+    const {book_id,study_type} = props
     const dispatch = useDispatch<Dispatch>();
     const {isLoading,pageSize,pageNum,todayStudyCurrentIndex,current,todayStudyList,todayStudyCount} = useSelector((state:RootState) => {
         const s = state.study
@@ -46,6 +47,7 @@ const BatchList= (props:D) => {
                     return (
                         <div key={item.id} className={`${css.batch_item}`}>
                             <div >
+
                                 <div className={`${css.right_t}`}>
                                     <div>
                                         <Tooltip placement="top" title={`点击即可收藏该单词`}>
@@ -74,6 +76,11 @@ const BatchList= (props:D) => {
 
                                         <Popover content={(<div>
                                             <p style={{fontSize:'20px'}}>{item.e_word}</p>
+                                            <p>
+                                                <a href={`https://dict.youdao.com/search?q=${item.e_word}&keyfrom=new-fanyi.smartResult`} target={'_blank'} className={'mr10'}>有道</a>
+                                                <a href={`https://fanyi.baidu.com/translate?aldtype=16047&query=${item.e_word}&keyfrom=baidu&smartresult=dict&lang=auto2zh`} target={`_blank`} className={'mr10'}>百度</a>
+                                                <a href={`http://www.iciba.com/word?w=${item.e_word}`} target={`_blank`}>金山词霸</a>
+                                            </p>
                                             {
                                                 item.c_word_list.map(item3=>{
                                                     return (
@@ -97,9 +104,10 @@ const BatchList= (props:D) => {
 
                                 </div>
                                 <div className="b">
+
                                     <Input
                                         className={`${item.is_now_test_right==1?'green':''} ${item.is_now_test_right==2?'red':''}`}
-                                        placeholder={'请输入听到的单词'}
+                                        placeholder={`请输入单词 编号:${item.num_id}`}
                                         onChange={(e)=>{
                                             const v = e.target.value
                                             const len = v.length;
@@ -128,8 +136,6 @@ const BatchList= (props:D) => {
                                                             item4.is_test_right = 2
                                                         }
                                                     }
-
-
                                                 }
                                             })
                                             dispatch.study.set_todayStudyList(l)
@@ -144,7 +150,8 @@ const BatchList= (props:D) => {
                                                 dispatch.study.updatestudyprogress({
                                                     book_id:book_id,
                                                     result:item.is_test_right==1?1:2,
-                                                    e_word:item.e_word
+                                                    e_word:item.e_word,
+                                                    study_type:study_type
                                                 })
                                             }
                                         }}

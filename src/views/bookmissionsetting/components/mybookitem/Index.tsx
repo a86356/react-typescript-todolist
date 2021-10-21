@@ -16,11 +16,6 @@ interface D{
 const MyBookItem= (props:D) => {
   const  {book_name,total,hasfinished,pic} =  props
 
-
-  useEffect(()=>{
-
-  },[])
-
     return (
       <>
           <div className={`${css.item} p20`}>
@@ -32,16 +27,16 @@ const MyBookItem= (props:D) => {
                       <div className={`${css.title} lh30 mb10`}>
                           <h2 className={'fz20'}>{book_name}</h2>
                       </div>
-                      <div className={`${css.finish_time}  tc2`}>
-                          <span className={`${css.t}`}>预计完成时间：</span>
-                          <span className={`${css.b}`}>2021年10月20日</span>
-                      </div>
+                      {/*<div className={`${css.finish_time}  tc2`}>*/}
+                      {/*    <span className={`${css.t}`}>预计完成时间：</span>*/}
+                      {/*    <span className={`${css.b}`}>2021年10月20日</span>*/}
+                      {/*</div>*/}
                       <div className={`${css.finished}  lh30 tc2`}>
                           已完成：{hasfinished}/{total}词
                       </div>
-                      <div className={`${css.progressbarwrap}`}>
-                          <ProgressBar total={total} hasfinished={hasfinished}/>
-                      </div>
+                      {/*<div className={`${css.progressbarwrap}`}>*/}
+                      {/*    <ProgressBar total={total} hasfinished={hasfinished}/>*/}
+                      {/*</div>*/}
                   </div>
               </div>
           </div>

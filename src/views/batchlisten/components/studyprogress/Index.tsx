@@ -26,19 +26,25 @@ const Studyprogress= (data:P) => {
         }
     });
    useEffect(()=>{
-       dispatch.study.getuserstudytodaybase({
+       dispatch.study.getuserstudytodaybaseAsync({
            book_id:book_id
        })
    },[pageNum,current])
 
     return (
         <div className={`${css.progress_wrap}`}>
-            <Card title="学习进度"  style={{ width: 300 }}>
-                <p>课本:{current.book_name}</p>
-                <p className={`${css.red}`}>今日学习新单词数:{todayStudyNum}</p>
-                <p className={`${css.green}`}>今日复习单词数:{todayReviewNum}</p>
-                <p className={`${css.green}`}>剩余新单词数:{todayStudyCount}</p>
-            </Card>
+            {/*<Card title="学习进度"  style={{ width: 300 }}>*/}
+            {/*    <p >课本:{current.book_name}</p>*/}
+            {/*    <p className={`${css.red} `}>今日学习新单词数:{todayStudyNum}</p>*/}
+            {/*    <p className={`${css.green} `}>今日复习单词数:{todayReviewNum}</p>*/}
+            {/*    <p className={`${css.green} `}>剩余新单词数:{todayStudyCount}</p>*/}
+            {/*</Card>*/}
+            <h1 style={{fontWeight:'bold',fontSize:'30px'}}>课本:{current.book_name}</h1>
+            <div style={{display:"flex",justifyContent:'center',fontSize:'24px'}}>
+                <p className={`${css.red} mr10`}>今日学习新单词数:{todayStudyNum}</p>
+                <p className={`${css.green} mr10`}>今日复习单词数:{todayReviewNum}</p>
+                <p className={`${css.green} `}>剩余新单词数:{todayStudyCount}</p>
+            </div>
         </div>
     );
 };

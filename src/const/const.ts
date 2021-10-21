@@ -27,6 +27,7 @@ export class Study_type{
     static REVIEW_WORD=2
     static COLLECTED_WORD=3
     static ALL_WORD=4
+    static WORD_WRONG=5
 }
 
 //导航
@@ -50,6 +51,7 @@ export class Router_type{
     static CHOOSE_BOOK = '/choosebooks'
     static BOOKS_LIST = '/books'
     static AD='/ad'
+    static ENTRY='/entry'
 }
 
 
@@ -57,4 +59,11 @@ export class Auth_type {
     static NO_PAY='购买单词书,请添加客服微信:100000356'
     static NO_BOOK='这里假如没有搜到您需要的单词书,请联系微信:100000356'
     static NO_LOGIN='请先登陆哦~'
+}
+
+
+//学习方式
+export class Study_way{
+    static FIRST_STUDY=1;
+    static REVIEW_STUDY=2;
 }

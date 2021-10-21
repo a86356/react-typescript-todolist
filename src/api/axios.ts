@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosError, AxiosResponse } from "axios";
 import {message} from "antd";
 import {getCache} from "@/utils/CacheUtils";
-axios.defaults.timeout = 100000;
+axios.defaults.timeout = 180000;
 axios.defaults.baseURL =
   process.env.NODE_ENV === "production"
     ? "https://www.weixin1234.top/index.php/" // 这里设置实际项目的生产环境地址

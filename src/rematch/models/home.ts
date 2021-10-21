@@ -16,7 +16,8 @@ export const home = createModel<RootModel>()({
         userPhone:'',
         isShowForgetpwdForm:false,
         isShowForgetpwdLoading:false,
-        selectedSubNavId:SubNav_type.WORD_STUDY
+        selectedSubNavId:SubNav_type.WORD_STUDY,
+        nowFinishCount:0
     } as HomeInitialState,
     reducers: {
         set_isShowLoginForm(state, payload:boolean) {
@@ -48,7 +49,9 @@ export const home = createModel<RootModel>()({
             clearCache('token')
             return {...state, userPhone:''}
         },
-
+        set_nowFinishCount(state, payload: number) {
+            return {...state, nowFinishCount:payload}
+        },
     },
     effects: (dispatch) => ({
         async loginAsync(payload: LoginData, state){
@@ -62,6 +65,9 @@ export const home = createModel<RootModel>()({
                 setCache(DEFAULT_YB,data.fy)
                 dispatch.home.set_userPhone(data.phone)
                 dispatch.home.set_isShowLoginForm(false)
+                if(payload.cb){
+                    payload.cb()
+                }
             }
             dispatch.home.set_isShowLoginLoading(false)
         },
@@ -92,19 +98,35 @@ export const home = createModel<RootModel>()({
             dispatch.home.set_isShowForgetpwdLoading(false)
         },
         async getUserinfoAsync(payload: number, state){
-
             const p= await apis.post('dancife/getuserinfo',payload);
             if(p){
                 const data = p.data;
                 setCache(DEFAULT_YB,data.fy)
             }
         },
+        async updatenowstudyAsync(payload: IUpdatenowstudy, state){
+            const p= await apis.post('dancife/updatenowstudy',payload);
+            if(p){
+                const data = p.data;
+                if(payload.cb){
+                    payload.cb()
+                }
+            }
+        },
+
     }),
 })
 
+
+interface IUpdatenowstudy{
+    book_id:number,
+    cb:any
+}
+
 interface LoginData{
     phone:string,
-    password:string
+    password:string,
+    cb:any
 }
 interface RegisterData{
     phone:string,
@@ -125,5 +147,6 @@ export interface HomeInitialState {
     userPhone:string;
     isShowForgetpwdForm:boolean
     isShowForgetpwdLoading:boolean;
-    selectedSubNavId:number
+    selectedSubNavId:number,
+    nowFinishCount:number
 }

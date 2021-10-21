@@ -7,7 +7,6 @@ import ReactECharts from 'echarts-for-react';
 
 const StudyProgress= () => {
 
-    const book_id = 4;
     const dispatch = useDispatch<Dispatch>();
     const {list,totalCount} = useSelector((state:RootState) => {
         const s = state.studyprogress
@@ -18,9 +17,7 @@ const StudyProgress= () => {
     });
     useEffect(()=>{
         dispatch.studyprogress.getstudyprogressinfoAsync(0)
-
     },[])
-
 
 
     const getOption=()=>{
@@ -87,8 +84,6 @@ const StudyProgress= () => {
             ]
         };
     }
-
-
 
     return (
         <div className={`bodycontainer p20`} >
