@@ -1,6 +1,7 @@
 export const SHOPNAME='简一英语'
 export const PHONE='phone'
 export const TOKEN='token'
+export const EXPIRED_TIME='expired_time'
 export const DEFAULT_YB='fy' //设置的默认值
 
 export const SEP_1='---'

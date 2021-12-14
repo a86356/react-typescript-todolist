@@ -44,7 +44,6 @@ const Login = () => {
                                  message.error("手机号为空");
                                  return
                              }
-
                              if(isEmpty(formdata.password)){
                                  message.error("密码为空");
                                  return

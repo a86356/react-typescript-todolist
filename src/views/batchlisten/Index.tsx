@@ -40,7 +40,7 @@ const BatchListen= () => {
             book_id:book_id,
             pageNum:pageNum,
             pageSize:pageSize,
-            type:1,
+            type:type,
             isPage:true
         })
 
@@ -71,7 +71,7 @@ const BatchListen= () => {
                     book_id:book_id,
                     pageNum:m,
                     pageSize:pageSize,
-                    type:1,
+                    type:type,
                     isPage:true
                 })
             }} currentPage={pageNum} pageSize={pageSize}/>

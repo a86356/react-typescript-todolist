@@ -1,19 +1,30 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import css from './index.module.less'
 import {useDispatch, useSelector} from "react-redux";
 import {Dispatch, RootState} from "@/rematch";
 
 import ReactECharts from 'echarts-for-react';
+import {isEmpty} from "@/utils/ValidateUtils";
+import {getCache} from "@/utils/CacheUtils";
+import {EXPIRED_TIME} from "@/const/const";
 
 const Ad= () => {
 
     const book_id = 4;
+    const [pwd,setPwd] = useState('');
     const dispatch = useDispatch<Dispatch>();
-    const {list,totalCount} = useSelector((state:RootState) => {
+    const {list,totalCount,expired_time} = useSelector((state:RootState) => {
         const s = state.studyprogress
+        let expiredTime=state.home.expiredTime
+
+        if(isEmpty(expiredTime)){
+            expiredTime  = getCache(EXPIRED_TIME)
+        }
+
         return {
             list:s.list,
             totalCount:s.totalStudyCount,
+            expired_time : expiredTime
         }
     });
     useEffect(()=>{
@@ -94,10 +105,11 @@ const Ad= () => {
         <div className={`bodycontainer p20`} >
             {/*<p>购买英语听力,阅读,音标视频课程，适合零基础,小初高,大学四六级,成人学习</p>*/}
             {/*<p>其他福利:购买后会把您拉进独家英语学习群,群内有多位英语8级的名师在线解答英语问题</p>*/}
-            {/*<p>价格:365元,视频永久可看</p>*/}
-            <p>购买网站vip,点我,<a href={'https://shop527585205.taobao.com/?spm=a230r.7195193.1997079397.13.349370bddbcFMT'} target={'_blank'}>简一英语</a></p>
+                        {/*<p>价格:365元,视频永久可看</p>*/}
+            <p>购买网站vip,点我,</p>
             <p>微信公众号/淘宝店铺/抖音：简一英语</p>
             <p>客服微信:100000356</p>
+            <p>账号到期时间:{expired_time}</p>
         </div>
     );
 };

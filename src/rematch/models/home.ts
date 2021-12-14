@@ -3,7 +3,7 @@ import type {RootModel} from '../models'
 import {message} from "antd";
 import apis from "@/api/apis";
 import {clearCache, setCache} from "@/utils/CacheUtils";
-import {DEFAULT_YB, PHONE, TOKEN} from "@/const/const";
+import {DEFAULT_YB, EXPIRED_TIME, PHONE, TOKEN} from "@/const/const";
 
 import {SubNav_type} from "@/const/const";
 
@@ -17,7 +17,8 @@ export const home = createModel<RootModel>()({
         isShowForgetpwdForm:false,
         isShowForgetpwdLoading:false,
         selectedSubNavId:SubNav_type.WORD_STUDY,
-        nowFinishCount:0
+        nowFinishCount:0,
+        expiredTime:''
     } as HomeInitialState,
     reducers: {
         set_isShowLoginForm(state, payload:boolean) {
@@ -25,6 +26,9 @@ export const home = createModel<RootModel>()({
         },
         set_isShowLoginLoading(state, payload: boolean) {
             return {...state, isShowLoginLoading:payload}
+        },
+        set_expiredTime(state, payload: string){
+            return {...state, expiredTime:payload}
         },
         set_isShowRegisterForm(state, payload: boolean) {
             return {...state,isShowRegisterForm:payload}
@@ -63,7 +67,9 @@ export const home = createModel<RootModel>()({
                 setCache(PHONE,data.phone)
                 setCache(TOKEN,data.token)
                 setCache(DEFAULT_YB,data.fy)
+                setCache(EXPIRED_TIME,data.expired_time)
                 dispatch.home.set_userPhone(data.phone)
+                dispatch.home.set_expiredTime(data.expired_time)
                 dispatch.home.set_isShowLoginForm(false)
                 if(payload.cb){
                     payload.cb()
@@ -101,6 +107,7 @@ export const home = createModel<RootModel>()({
             const p= await apis.post('dancife/getuserinfo',payload);
             if(p){
                 const data = p.data;
+
                 setCache(DEFAULT_YB,data.fy)
             }
         },
@@ -148,5 +155,6 @@ export interface HomeInitialState {
     isShowForgetpwdForm:boolean
     isShowForgetpwdLoading:boolean;
     selectedSubNavId:number,
-    nowFinishCount:number
+    nowFinishCount:number,
+    expiredTime:string
 }

@@ -8,6 +8,7 @@ import {CheckCircleOutlined, CloseCircleOutlined,} from '@ant-design/icons';
 import {getDefaultPlayPhontic} from "@/utils/CommonUtils";
 import {isEmpty} from "@/utils/ValidateUtils";
 import {IWordItem} from '@/rematch/models/study'
+import MyEmpty from "@/components/empty/Index";
 
 interface D{
     book_id:number,
@@ -42,6 +43,9 @@ const BatchList= (props:D) => {
 
     return (
         <div className={`${css.right}`}>
+            <div style={{display:'flex',justifyContent:"center",width:'1300px'}}>
+                <MyEmpty isShow={todayStudyList.length==0}/>
+            </div>
             {
                 todayStudyList.map((item)=>{
                     return (

@@ -19,8 +19,10 @@ const Header = () => {
         phone = hidePhone(phone)
         return {
             phone:phone,
+
         }
     });
+
   const dispatch = useDispatch<Dispatch>();
   const [isShow,setIsShow] = useState<boolean>(false)
   const history = useHistory();
@@ -35,10 +37,11 @@ const Header = () => {
                 {/*<h1>淘宝店/微信公众号 : 简一英语</h1>*/}
             </div>
             <div className={`${css.middle}`}>
-                <h1>淘宝店/微信公众号 : 简一英语</h1>
+                <h1>听写软件购买，微信：100000356</h1>
                 {/*<a onClick={()=>{*/}
                 {/*    setIsShow(true)*/}
                 {/*}}>使用快捷键</a>*/}
+
             </div>
             <div className={`${css.right}`}>
                 <div className={`${css.login} ${isEmpty(phone)?'':'hide'}`}>
