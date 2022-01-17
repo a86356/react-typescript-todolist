@@ -22,10 +22,10 @@ const SearchBar= () => {
     return (
         <div className={`${css.searchbar}`}>
             <div className={`${css.header_left}`}>
-                <Tooltip placement="bottom" title={Auth_type.NO_BOOK} >
+                <Tooltip placement="bottom" title={Auth_type.NO_AUDIO} >
                     <div className="flex">
                         <i className={'iconfont fz20'}>&#xe601;</i>
-                        <div className={'ml10 lh20'}>这里没有找到我要的书怎么办?</div>
+                        <div className={'ml10 lh20'}>添加自己的听力音频?</div>
                     </div>
                 </Tooltip>
             </div>
@@ -43,7 +43,7 @@ const SearchBar= () => {
                            dispatch.choosebook.getBookListAsync({
                                pageNum:1,
                                pageSize:10,
-                               category_id:categoryId
+
                            })
                        }
 

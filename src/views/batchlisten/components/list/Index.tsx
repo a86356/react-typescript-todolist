@@ -151,12 +151,7 @@ const BatchList= (props:D) => {
                                         onBlur={()=>{
                                             //console.log(item.e_word)
                                             if(item.is_test_right!=0){
-                                                dispatch.study.updatestudyprogress({
-                                                    book_id:book_id,
-                                                    result:item.is_test_right==1?1:2,
-                                                    e_word:item.e_word,
-                                                    study_type:study_type
-                                                })
+
                                             }
                                         }}
                                     />

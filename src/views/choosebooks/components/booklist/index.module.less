@@ -3,19 +3,26 @@
   width: 100%;
 }
 .list{
-  display: grid;
-  flex-wrap: wrap;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  grid-row-gap: 20px;
-  grid-column-gap: 20px;
+  //display: grid;
+  //flex-wrap: wrap;
+  //grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  //grid-row-gap: 10px;
+  //grid-column-gap: 10px;
 
   li{
-    width: 140px;
     position: relative;
     cursor: pointer;
   }
   .title{
     font-weight: bold;
+    border-bottom:1px solid #ccc;
+    line-height: 40px;
+    width: 100%;
+    padding-left: 10px;
+    overflow: hidden;
+  }
+  .title:hover{
+    background: #ccc;
   }
   .total{
     text-align: center;

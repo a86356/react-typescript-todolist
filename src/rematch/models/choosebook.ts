@@ -13,9 +13,29 @@ export const choosebook = createModel<RootModel>()({
         pageNum:1,
         pageSize:10,
         categoryId:0,
-        count:0
+        count:0,
+        oneList:[],
+        twoList:[],
+        threeList:[],
+        oneId:0,
+        twoId:0
     } as ChoosebookInitialState,
     reducers: {
+        set_twoId(state, payload: number) {
+            return {...state,twoId: payload}
+        },
+        set_oneId(state, payload: number) {
+            return {...state,oneId: payload}
+        },
+        set_oneList(state, payload: []) {
+            return {...state,oneList: payload}
+        },
+        set_twoList(state, payload: Array<oneItemChild>) {
+            return {...state,twoList: payload}
+        },
+        set_threeList(state, payload: []) {
+            return {...state,threeList: payload}
+        },
         set_searchInputValue(state, payload: string) {
             return {...state,searchInputValue: payload}
         },
@@ -43,31 +63,82 @@ export const choosebook = createModel<RootModel>()({
 
     },
     effects: (dispatch) => ({
+        select_one(oneid:number,state){
+            const dis = dispatch.choosebook;
+            const onelist=state.choosebook.oneList;
+            dis.set_oneId(oneid)
+            onelist.forEach(item=>{
+                if(item.id==oneid){
+                    dis.set_twoList(item.child)
+                    if(item.child.length>0){
+                        dis.set_twoId(item.child[0].id)
+                    }
+                }
+            })
+        },
+        async select_two(twoid:number,state){
+            const dis = dispatch.choosebook;
+
+            const oneId=state.choosebook.oneId;
+            const pageSize=state.choosebook.pageSize;
+            dis.set_twoId(twoid)
+            dis.set_pageNum(1)
+
+            const p= await apis.post('dancife/getarticlesbybookid',{
+                  one_id:oneId,
+                  book_id:twoid,
+                  pageNum:1,
+                  pageSize:pageSize,
+            });
+            if(p){
+                const {list,count} = p.data;
+                dis.set_threeList(list)
+                dis.set_count(count)
+            }
+        },
         async getAllCategoryAsync(anynumber:number, state) {
             const dis = dispatch.choosebook;
-            const p= await apis.post('dancife/getallcategory',{});
+            const p= await apis.post('dancife/getdiffcultbook',{});
+            const pageSize=state.choosebook.pageSize;
+
             if(p){
                 const data = p.data;
-                const category_id = data['list'][0].id
-                dis.set_cateList(data['list'])
-                dis.set_categoryId(category_id)
+                const oneId = data[0]['id']
+                const twoId = data[0]['child'][0]['id']
+                dis.set_oneId(oneId)
+                dis.set_twoId(twoId)
+                dis.set_oneList(data)
+                dis.set_twoList(data[0]['child'])
+                const p2= await apis.post('dancife/getarticlesbybookid',{
+                    one_id:oneId,
+                    book_id:twoId,
+                    pageNum:1,
+                    pageSize:pageSize,
+                });
+               if(p2){
+                   const {list,count} = p2.data;
+                   dis.set_count(count)
+                   dis.set_threeList(list)
+               }
             }
         },
         async getBookListAsync(data:QueryBook, state) {
             const dis = dispatch.choosebook;
-            dis.set_isSearchLoading(true)
+            const {oneId,twoId,pageSize} = state.choosebook
+
             dis.set_pageNum(data.pageNum)
-            if(data.category_id){
-                dis.set_categoryId(data.category_id)
+            const p2= await apis.post('dancife/getarticlesbybookid',{
+                one_id:oneId,
+                book_id:twoId,
+                pageNum:data.pageNum,
+                pageSize:pageSize,
+                book_name:data.book_name
+            });
+            if(p2){
+                const {list,count} = p2.data;
+                dis.set_count(count)
+                dis.set_threeList(list)
             }
-            const p= await apis.post('dancife/getbooklist',data);
-            if(p){
-                const data = p.data;
-                dis.set_bookList(data['list'])
-                dis.set_count(data['count'])
-            }
-            dis.set_isSearchLoading(false)
-            dis.set_isSearchLoaded(true)
         },
         async addMyBookAsync(data:IAddBook, state) {
             const p= await apis.post('dancife/addmybook',{book_id:data.book_id});
@@ -85,6 +156,19 @@ interface IAddBook {
     callback:any
 }
 
+interface oneItemChild{
+    book_name:string,
+    diff_level_cn:string,
+    id:number,
+    sort:string
+}
+
+interface oneItem{
+    child:Array<oneItemChild>,
+    id:number,
+    level:string
+}
+
 export interface ChoosebookInitialState {
     searchInputValue:string;
     isSearchLoading:boolean;
@@ -94,7 +178,12 @@ export interface ChoosebookInitialState {
     pageNum:number;
     categoryId:number;
     count:number;
-    pageSize:number
+    pageSize:number,
+    oneList:Array<oneItem>,
+    twoList:Array<oneItemChild>,
+    threeList:[],
+    oneId:number,
+    twoId:number,
 }
 interface QueryBook{
     book_id?:number,

@@ -3,6 +3,8 @@ export const PHONE='phone'
 export const TOKEN='token'
 export const EXPIRED_TIME='expired_time'
 export const DEFAULT_YB='fy' //设置的默认值
+export const TINGXIE_VIP='tingxie_vip' //设置的默认值
+export const TINGXIE_UPLOAD='tingxie_upload' //设置的默认值
 
 export const SEP_1='---'
 export const SEP_2='|||'
@@ -43,7 +45,7 @@ export class SubNav_type{
 //路由
 export class Router_type{
     static HOME_PATH='/'
-    static STUDY_PROGRESS='/studyprogress'
+    static STUDY_PROGRESS='/tchistory'
     static BOOK_WORDS='/bookwords'
     static BATCH_LISTEN = '/batchlisten'
     static DETAIL_LISTEN = '/detaillisten'
@@ -58,7 +60,9 @@ export class Router_type{
 
 export class Auth_type {
     static NO_PAY='购买单词书,请添加客服微信:100000356'
+    static NO_PAY_TC='购买简一听写软件,请添加客服微信:100000356'
     static NO_BOOK='这里假如没有搜到您需要的单词书,请联系微信:100000356'
+    static NO_AUDIO='这里假如没有搜到您需要的听力音频,请联系微信:100000356'
     static NO_LOGIN='请先登陆哦~'
 }
 

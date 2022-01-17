@@ -18,12 +18,10 @@ export function useRouter() {
       push: history.push,
       replace: history.replace,
       pathname: location.pathname,
-
       query: {
         ...queryString.parse(location.search), // Convert string to object
         ...params,
       },
-
       match,
       location,
       history,
