@@ -60,7 +60,7 @@ const Detaillisten= () => {
                 <SubmitBtns book_id={book_id} study_type={type} />
             </div>
             <div className="result">
-                <ResultPage title={'恭喜你完成今天的任务拉~~'} subtitle={``} isShow={todayStudyCurrentIndex>=todayStudyCount &&todayStudyCurrentIndex>0}/>
+                <ResultPage title={'恭喜你完成今天的任务拉~~'} subtitle={``} isShow={todayStudyCurrentIndex>=todayStudyCount && todayStudyList.length==0}/>
             </div>
             <Studyprogress book_id={book_id}/>
 
