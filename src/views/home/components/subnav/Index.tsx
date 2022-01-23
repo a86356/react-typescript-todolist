@@ -20,9 +20,9 @@ const SubNav = () => {
     const history = useHistory();
 
     const [navlist]=useState([
-        {id:SubNav_type.WORD_STUDY, name:'单词学习',path:Router_type.HOME_PATH},
+        {id:SubNav_type.WORD_STUDY, name:'听写',path:Router_type.HOME_PATH},
         // {id:SubNav_type.WORD_BOOK_SELECT, name:'单词书选择'},
-        {id:SubNav_type.STUDY_PROGRESS, name:'学习进度',path:Router_type.STUDY_PROGRESS},
+        {id:SubNav_type.STUDY_PROGRESS, name:'已完成',path:Router_type.STUDY_PROGRESS},
         {id:SubNav_type.STUDY_SETTING, name:'设置',path:Router_type.ENV_SETTING},
         {id:SubNav_type.AD, name:'联系客服',path:Router_type.AD},
     ])

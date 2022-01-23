@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import css from './index.module.less'
 import {useDispatch, useSelector} from "react-redux";
 import BookPic from "@/components/bookpic/Index";
@@ -6,15 +6,18 @@ import MyPagination from "@/components/pagination/Index";
 import MyEmpty from "@/components/empty/Index";
 import {message, Modal} from 'antd';
 import {useHistory} from "react-router-dom";
-import {SHOPNAME} from "@/const/const";
+import {SHOPNAME, TINGXIE_VIP} from "@/const/const";
 import {Dispatch, RootState} from "@/rematch";
 import {Auth_type} from '@/const/const'
+import {getCache} from "@/utils/CacheUtils";
 
 const BookList= () => {
-    const {pageSize,searchInputValue,pageNum,bookList,count,categoryId,loading,loaded} = useSelector((state:RootState) => {
+    const {oneId,twoId,pageSize,searchInputValue,pageNum,threeList,count,categoryId,loading,loaded} = useSelector((state:RootState) => {
         const s = state.choosebook
         return {
-            bookList:s.bookList,
+            oneId:s.oneId,
+            twoId:s.twoId,
+            threeList:s.threeList,
             count:s.count,
             categoryId:s.categoryId,
             pageNum:s.pageNum,
@@ -28,57 +31,55 @@ const BookList= () => {
     const [isModalVisible,setIsModalVisible] = useState<boolean>(false)
     const history = useHistory()
 
+    useEffect(()=>{
+
+        dispatch.choosebook.set_pageNum(1)
+    },[oneId,twoId])
+
     return (
         <div className={`ml70 ${css.right}`}>
             <ul className={`${css.list} ${loading?'hide':''}`}>
                 {
-                    bookList.map((item:any)=>{
+                    threeList.map((item:any)=>{
                         return (
-                            <li key={item.id} onClick={()=>{
-                                if(item.is_pay==1){
-                                    setIsModalVisible(true)
-                                    return;
-                                }
-                                //已经在单词书中
+                            <li className={`${css.li}`} key={item.id} onClick={()=>{
 
+
+                                //已经在单词书中
+                                const tx_vip= getCache(TINGXIE_VIP);
+                                if(tx_vip!='1'){
+                                    setIsModalVisible(true);
+                                    return
+                                }
+                                history.push({ pathname: "/tcdetail/"+item.id, state: { article_id: item.id } });
                                 //添加到我的单词书中
-                                dispatch.choosebook.addMyBookAsync({book_id:item.id,callback:function (){
-                                    message.success('添加成功')
-                                    setTimeout(()=>{
-                                        console.log('navvvv')
-                                        //history.push({ pathname: "/detail", state: { e_word: 'state',c_word:'国家，政权' } });
-                                    },1000)
-                                }})
+                                // dispatch.choosebook.addMyBookAsync({book_id:item.id,callback:function (){
+                                //     message.success('添加成功')
+                                //     setTimeout(()=>{
+                                //         console.log('navvvv')
+                                //         //history.push({ pathname: "/detail", state: { e_word: 'state',c_word:'国家，政权' } });
+                                //     },1000)
+                                // }})
                             }}>
-                                <div className={`${css.pic}`}>
-                                    <BookPic pic={item.pic} bookName={item.book_name}/>
-                                </div>
-                                <div className={`${css.title} fz16 lh24 mt10 mb10 tc1`}>
-                                    {item.book_name}
-                                </div>
-                                <div className={`${css.total} tc2 fz14 ${item.count==0 || item.count==null?'hide':''}`}>
-                                    共{item.count}词
-                                </div>
-                                <div className={`${css.vip} tac`}>
-                                    {item.is_pay==1?'vip会员专享':'免费'}
-                                    {/*<i className={`iconfont ${item.is_pay==1?'':'hide'}`}>&#xe62a;</i>*/}
-                                    {/*<i className={`iconfont ${item.is_pay==1?'':'hide'}`}>&#xe653;</i>*/}
+
+                                <div className={`${css.title} fz16 lh24  tc1`}>
+                                    {item.subfix}
                                 </div>
                             </li>
                         )
                     })
                 }
             </ul>
-            <MyEmpty isShow={(loaded && bookList.length===0)}/>
+            <MyEmpty isShow={(loaded && threeList.length===0)}/>
 
-            <Modal title="成为vip会员"
+            <Modal title="成为简一听抄会员"
                    cancelText={'取消'}
                    visible={isModalVisible} onOk={()=>{
                 setIsModalVisible(false)
             }} onCancel={()=>{
                 setIsModalVisible(false)
             }}>
-                <p>{Auth_type.NO_PAY}</p>
+                <p>{Auth_type.NO_PAY_TC}</p>
             </Modal>
 
             <div className={`${css.pagewrap}`}>
@@ -86,8 +87,6 @@ const BookList= () => {
                     dispatch.choosebook.getBookListAsync({
                         pageNum:page,
                         pageSize:10,
-                        category_id:categoryId,
-                        book_name:searchInputValue
                     })
                 }}/>
             </div>

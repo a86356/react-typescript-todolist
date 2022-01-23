@@ -3,7 +3,7 @@ import type {RootModel} from '../models'
 import {message} from "antd";
 import apis from "@/api/apis";
 import {clearCache, setCache} from "@/utils/CacheUtils";
-import {DEFAULT_YB, EXPIRED_TIME, PHONE, TOKEN} from "@/const/const";
+import {DEFAULT_YB, EXPIRED_TIME, PHONE, TOKEN, TINGXIE_VIP, TINGXIE_UPLOAD} from "@/const/const";
 
 import {SubNav_type} from "@/const/const";
 
@@ -18,9 +18,13 @@ export const home = createModel<RootModel>()({
         isShowForgetpwdLoading:false,
         selectedSubNavId:SubNav_type.WORD_STUDY,
         nowFinishCount:0,
-        expiredTime:''
+        expiredTime:'',
+        is_tc_vip:'0'
     } as HomeInitialState,
     reducers: {
+        set_is_tc_vip(state, payload:string) {
+            return {...state, is_tc_vip:payload}
+        },
         set_isShowLoginForm(state, payload:boolean) {
             return {...state, isShowLoginForm:payload}
         },
@@ -68,9 +72,12 @@ export const home = createModel<RootModel>()({
                 setCache(TOKEN,data.token)
                 setCache(DEFAULT_YB,data.fy)
                 setCache(EXPIRED_TIME,data.expired_time)
+                setCache(TINGXIE_VIP,data.tx_vip)
+                setCache(TINGXIE_UPLOAD,data.tx_upload)
                 dispatch.home.set_userPhone(data.phone)
                 dispatch.home.set_expiredTime(data.expired_time)
                 dispatch.home.set_isShowLoginForm(false)
+
                 if(payload.cb){
                     payload.cb()
                 }
@@ -156,5 +163,6 @@ export interface HomeInitialState {
     isShowForgetpwdLoading:boolean;
     selectedSubNavId:number,
     nowFinishCount:number,
-    expiredTime:string
+    expiredTime:string,
+    is_tc_vip:string
 }

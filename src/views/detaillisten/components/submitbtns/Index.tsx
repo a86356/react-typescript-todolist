@@ -32,12 +32,7 @@ const SubmitBtns= (props:D) => {
 
         const now:IWordItem = todayStudyList[now_idx]
         console.log(now.e_word,now.num_id)
-        dispatch.study.updatestudyprogress({
-            book_id:now.book_id,
-            result:result,
-            e_word:now.e_word,
-            study_type:study_type
-        })
+
         const next= now_idx+1
         dispatch.study.set_todayStudyCurrentIndex(next)
         dispatch.study.set_todayStudyCurrent(todayStudyList[next])

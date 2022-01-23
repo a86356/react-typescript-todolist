@@ -1,11 +1,22 @@
 @import "src/assets/style/antd";
 
+.choosebook_category_left_wrap{
+  display: flex;
+}
+
+.onelist{
+  width: 120px;
+}
+.twolist{
+  width: 200px;
+}
 .choosebook_category_left{
-  width: 180px;
   overflow-y: auto;
-  height: 700px;
+  height: 600px;
+  border: 1px solid #ccc;
+
   li{
-    line-height: 90px;
+    line-height: 60px;
     text-align: center;
     font-size: @fz-large;
     cursor: pointer;
@@ -16,5 +27,6 @@
   .active{
     background: @bg-color-light-grey;
     color: @primary-color;
+    border-bottom: 1px solid #ccc;
   }
 }
